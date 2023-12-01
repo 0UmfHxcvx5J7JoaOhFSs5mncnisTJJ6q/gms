@@ -12,7 +12,7 @@ getfiledestinations <- function() {
   folders <- grep("^(\\.|225|output|calib_run|figure)", folders, invert = TRUE, value = TRUE)
   files <- NULL
   for (f in folders) {
-    message(Sys.time(), '   in "folders" loop')
+    message(Sys.time(), '   in "folders" loop: ', f)
     files <- c(files, dir(path = f, pattern = "^files$", recursive = TRUE, full.names = TRUE))
   }
   out <- NULL
