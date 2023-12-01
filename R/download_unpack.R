@@ -28,6 +28,7 @@
 download_unpack <- function(input, targetdir = "input", repositories = NULL,
                             debug = FALSE, unpack = TRUE,
                             stopOnMissing = FALSE) { # nolint
+  message(Sys.time(), '   start download_unpack()')
 
   if (is.list(input)) {
     files <- input$input
@@ -59,6 +60,7 @@ download_unpack <- function(input, targetdir = "input", repositories = NULL,
   message("Load data..")
   found <- NULL
   for (repo in names(repositories)) {
+    message(Sys.time(), '   download_unpack() repo loop')
     message("  try ", repo)
     if (grepl("://", repo)) {
       h <- try(curl::new_handle(verbose = debug, .list = repositories[[repo]]), silent = !debug)
@@ -72,6 +74,7 @@ download_unpack <- function(input, targetdir = "input", repositories = NULL,
       next
     }
     for (file in files) {
+      message(Sys.time(), '   download_unpack() file loop')
       path <- paste0(sub("/$", "", repo), "/", file)
       tmpdir <- ifelse((debug | !unpack | !grepl(".tgz", file)), targetdir, tempdir())
       if (grepl("://", repo)) {
@@ -131,5 +134,6 @@ download_unpack <- function(input, targetdir = "input", repositories = NULL,
 
   if (!debug) found$path <- NULL
   attr(found, "warnings") <- warnings()
+  message(Sys.time(), '   download_unpack() return(found)')
   return(found)
 }

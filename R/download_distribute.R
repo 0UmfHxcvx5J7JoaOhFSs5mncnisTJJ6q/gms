@@ -27,6 +27,7 @@ download_distribute <- function(files,
                                 additionalDelete = NULL,
                                 debug = FALSE,
                                 stopOnMissing = FALSE) {
+  message(Sys.time(), '   start download_distribute()')
 
   # set working directory to modelfolder
   cdir <- getwd()
@@ -46,6 +47,7 @@ download_distribute <- function(files,
 
   # delete files which will be copied/moved later on with copy_input
   if (!is.null(file2destination)) {
+    message(Sys.time(), '   foo')
     message("Delete old data in input folders ... ")
     delete_olddata(file2destination)
     message("done!\n")
@@ -53,6 +55,7 @@ download_distribute <- function(files,
 
   # delete additional files not treated by copy_input
   if (!is.null(additionalDelete)) {
+    message(Sys.time(), '   foo')
     message("Delete additional data ... ")
     delete_olddata(additionalDelete)
     message("done!\n")
@@ -60,6 +63,7 @@ download_distribute <- function(files,
 
 
   if (is.null(file2destination)) {
+    message(Sys.time(), '   foo')
     message("No 'files' file found. Input files won't be distributed.")
   }
 
@@ -68,6 +72,7 @@ download_distribute <- function(files,
   # DATA DOWNLOAD --------------------------------------------------------------
 
   # load data from source and unpack it
+  message(Sys.time(), '   download_distribute() DATA DOWNLOAD')
   filemap <- download_unpack(input = files, targetdir = "input",
                              repositories = repositories, debug = debug,
                              stopOnMissing = stopOnMissing)
